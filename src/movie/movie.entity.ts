@@ -5,7 +5,9 @@ export class MovieEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  //create title, poster, imdbID columns
+  @Column({ nullable: false })
+  imdbID: string;
+
   @Column({ nullable: false })
   title: string;
 
@@ -13,5 +15,8 @@ export class MovieEntity {
   poster: string;
 
   @Column()
-  imdbID: string;
+  imdbRating: number;
+
+  @Column({ nullable: true })
+  userRating: number;
 }

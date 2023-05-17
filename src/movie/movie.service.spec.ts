@@ -3,11 +3,10 @@ import { MovieService } from './movie.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { MovieEntity } from './movie.entity';
 import { Repository } from 'typeorm';
-import exp from 'constants';
 
 describe('MovieService', () => {
-  let mailService: MovieService;
-  let mailRepository: Repository<MovieEntity>;
+  let movieService: MovieService;
+  let movieRepository: Repository<MovieEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,14 +19,14 @@ describe('MovieService', () => {
       ],
     }).compile();
 
-    mailService = module.get<MovieService>(MovieService);
-    mailRepository = module.get<Repository<MovieEntity>>(
+    movieService = module.get<MovieService>(MovieService);
+    movieRepository = module.get<Repository<MovieEntity>>(
       getRepositoryToken(MovieEntity),
     );
   });
 
   it('should be defined', () => {
-    expect(mailService).toBeDefined();
-    expect(mailRepository).toBeDefined();
+    expect(movieService).toBeDefined();
+    expect(movieRepository).toBeDefined();
   });
 });
