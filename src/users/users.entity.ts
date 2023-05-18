@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { MovieEntity } from 'src/movie/movie.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -10,4 +11,7 @@ export class UserEntity {
 
   @Column({ nullable: false })
   password: string;
+
+  @ManyToMany(() => MovieEntity)
+  friends: MovieEntity[];
 }
