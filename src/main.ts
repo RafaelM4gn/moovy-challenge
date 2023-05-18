@@ -8,10 +8,12 @@ async function bootstrap() {
 
   //OpenAPI configuration
   const config = new DocumentBuilder()
-    .setTitle('Movie API')
-    .setDescription('Description of the Movie API')
+    .setTitle('Moovy API')
+    .setDescription('Api for moovy, Tarken Challenge')
     .setVersion('1.0')
-    .addTag('movie')
+    .addTag('Movie', 'Movie related endpoints')
+    .addTag('Auth', 'Authentication related endpoints')
+    .addTag('Users', 'Users related endpoints')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

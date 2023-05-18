@@ -6,10 +6,10 @@ export class MovieEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: false })
+  @Column()
   imdbID: string;
 
-  @Column({ nullable: false })
+  @Column()
   title: string;
 
   @Column()

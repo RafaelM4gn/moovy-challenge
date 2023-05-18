@@ -31,18 +31,4 @@ export class MovieDTO {
   @Min(0)
   @Max(5)
   userRating?: number;
-
-  constructor(
-    imdbID: string,
-    title: string,
-    poster: string,
-    imdbRating: number,
-    userRating: number,
-  ) {
-    this.imdbID = imdbID;
-    this.title = title;
-    this.poster = poster;
-    this.imdbRating = imdbRating;
-    this.userRating = userRating;
-  }
 }

@@ -17,7 +17,7 @@ export class MovieService {
   async GetMoviesByTitle(search: string): Promise<any> {
     const url = `http://www.omdbapi.com/?s=${search}&apikey=ce2fada4`;
     try {
-      const response = await axios.get(url);
+      const response = await axios.get<{ Search: any }>(url);
       const { data } = response;
       if (data.Search) {
         const movies = data.Search;

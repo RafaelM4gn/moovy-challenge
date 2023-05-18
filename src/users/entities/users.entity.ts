@@ -6,10 +6,10 @@ export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: false })
+  @Column()
   username: string;
 
-  @Column({ nullable: false })
+  @Column()
   password: string;
 
   @ManyToMany(() => MovieEntity, (movie) => movie.usersList)
