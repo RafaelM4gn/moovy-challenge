@@ -12,6 +12,6 @@ export class UserEntity {
   @Column({ nullable: false })
   password: string;
 
-  @ManyToMany(() => MovieEntity)
-  friends: MovieEntity[];
+  @ManyToMany(() => MovieEntity, (movie) => movie.usersList)
+  movieList: MovieEntity[];
 }

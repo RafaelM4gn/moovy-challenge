@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { UserEntity } from 'src/users/entities/users.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 
 @Entity({ name: 'mymovies' })
 export class MovieEntity {
@@ -19,4 +20,7 @@ export class MovieEntity {
 
   @Column({ nullable: true })
   userRating: number;
+
+  @ManyToMany(() => UserEntity, (user) => user.movieList)
+  usersList: UserEntity[];
 }
