@@ -1,5 +1,5 @@
-import { UserEntity } from 'src/users/entities/users.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { MovieLibraryEntity } from 'src/users/entities/movieLibrary.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity({ name: 'mymovies' })
 export class MovieEntity {
@@ -18,9 +18,9 @@ export class MovieEntity {
   @Column()
   imdbRating: number;
 
-  @Column({ nullable: true })
+  @Column()
   userRating: number;
 
-  @ManyToMany(() => UserEntity, (user) => user.movieList)
-  usersList: UserEntity[];
+  @OneToMany(() => MovieLibraryEntity, (movieLibrary) => movieLibrary.movie)
+  movieLibrary: MovieLibraryEntity[];
 }
