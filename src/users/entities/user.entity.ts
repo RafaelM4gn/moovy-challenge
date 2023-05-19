@@ -1,12 +1,5 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  ManyToMany,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { MovieLibraryEntity } from './movieLibrary.entity';
-import { MovieEntity } from 'src/movie/movie.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {

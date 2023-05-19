@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { MovieDTO } from './dto/movie.dto';
-import { UsersDto } from '../users/dto/users.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import {
   ApiOkResponse,
