@@ -11,7 +11,7 @@ async function bootstrap() {
     .setTitle('Moovy API')
     .setDescription('Api for moovy, Tarken Challenge')
     .setVersion('1.0')
-    .addTag('Movie', 'Movie related endpoints')
+    .addTag('Movies', 'Movie related endpoints')
     .addTag('Auth', 'Authentication related endpoints')
     .addTag('Users', 'Users related endpoints')
     .build();

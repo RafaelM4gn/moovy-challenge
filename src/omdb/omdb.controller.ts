@@ -5,9 +5,11 @@ import {
   ApiOkResponse,
   ApiUnauthorizedResponse,
   ApiQuery,
+  ApiTags,
 } from '@nestjs/swagger';
 
 @Controller('omdb')
+@ApiTags('Omdb-API')
 export class OmdbController {
   constructor(private readonly ombdService: OmdbService) {}
 
