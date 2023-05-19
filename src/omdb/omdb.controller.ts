@@ -7,6 +7,7 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
+import { SearchDto } from './dto/search.dto';
 
 @Controller('omdb')
 @ApiTags('Omdb-API')
@@ -20,7 +21,7 @@ export class OmdbController {
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiQuery({ name: 'search', required: true })
   @Get('search')
-  async searchMovie(@Query('search') search: string): Promise<any> {
-    return this.ombdService.GetMoviesByTitle(search);
+  async searchMovie(@Query() searchDto: SearchDto): Promise<any> {
+    return this.ombdService.GetMoviesByTitle(searchDto.search);
   }
 }

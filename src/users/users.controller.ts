@@ -7,7 +7,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UsersDto } from './dto/users.dto';
+import { UserDto } from './dto/user.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -18,7 +18,7 @@ export class UsersController {
 
   @Post()
   @ApiOperation({ summary: 'Create a new user' })
-  createUser(@Body() user: UsersDto): Promise<string> {
+  createUser(@Body() user: UserDto): Promise<string> {
     return this.usersService.createUser(user);
   }
 

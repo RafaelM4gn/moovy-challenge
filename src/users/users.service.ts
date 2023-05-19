@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './entities/user.entity';
-import { UsersDto } from './dto/users.dto';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UsersService {
@@ -16,7 +16,7 @@ export class UsersService {
   }
 
   //just for testing
-  async createUser(user: UsersDto): Promise<string> {
+  async createUser(user: UserDto): Promise<string> {
     const userExists = await this.usersRepository.findOne({
       username: user.username,
     });

@@ -6,6 +6,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  //Validation configuration
+  app.useGlobalPipes(new ValidationPipe());
+
   //OpenAPI configuration
   const config = new DocumentBuilder()
     .setTitle('Moovy API')
