@@ -1,7 +1,14 @@
 import { MovieLibraryEntity } from 'src/users/entities/movieLibrary.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { UserEntity } from 'src/users/entities/user.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToMany,
+} from 'typeorm';
 
-@Entity({ name: 'mymovies' })
+@Entity({ name: 'movies' })
 export class MovieEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

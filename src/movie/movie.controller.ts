@@ -26,6 +26,7 @@ import {
 export class MovieController {
   constructor(private readonly movieService: MovieService) {}
 
+  //TODO Remove from here
   @ApiOperation({ summary: 'Search for a movie' })
   @ApiOkResponse({
     description: 'A list of all movies found with given substring in title',
@@ -37,7 +38,6 @@ export class MovieController {
     return this.movieService.GetMoviesByTitle(search);
   }
 
-  //database
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Add a movie to my library' })
   @Post()
@@ -46,14 +46,15 @@ export class MovieController {
     @Req() request: any,
   ): Promise<string> {
     const user = request.user;
-    return this.movieService.addMovie(movie);
+    return this.movieService.addMovieToLibrary(movie, user);
   }
 
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'List all movies in my library' })
   @Get()
-  listMyLibrary(): Promise<MovieDTO[]> {
-    const response = this.movieService.listMyLibrary();
+  listMyLibrary(@Req() request: any): Promise<MovieDTO[]> {
+    const user = request.user;
+    const response = this.movieService.listMyLibrary(user);
     return response;
   }
 

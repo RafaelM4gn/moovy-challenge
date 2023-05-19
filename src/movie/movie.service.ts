@@ -1,19 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { Repository } from 'typeorm';
 import { MovieEntity } from './movie.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MovieDTO } from './dto/movie.dto';
+import { UserEntity } from '../users/entities/user.entity';
+import { MovieLibraryEntity } from 'src/users/entities/movieLibrary.entity';
 
 @Injectable()
 export class MovieService {
   constructor(
     @InjectRepository(MovieEntity)
     private readonly movieRepository: Repository<MovieEntity>,
+    @InjectRepository(UserEntity)
+    private readonly userRepositorty: Repository<UserEntity>,
+    @InjectRepository(MovieLibraryEntity)
+    private readonly movieLibraryRepository: Repository<MovieLibraryEntity>,
   ) {}
 
-  //methods
-
+  //TODO remove from here
   async GetMoviesByTitle(search: string): Promise<any> {
     const url = `http://www.omdbapi.com/?s=${search}&apikey=ce2fada4`;
     try {
@@ -57,27 +62,64 @@ export class MovieService {
     }
   }
 
-  async addMovie(movie: MovieDTO): Promise<string> {
-    //check if exists by imdbID
-    const movieExists = await this.movieRepository.findOne({
+  async addMovieToLibrary(movie: MovieDTO, user: any): Promise<string> {
+    //get user
+    const userOwner = await this.userRepositorty.findOne({
+      username: user.username,
+    });
+
+    // check if movie exists if not create it
+    let movieExists = await this.movieRepository.findOne({
       imdbID: movie.imdbID,
     });
-    if (movieExists) {
+
+    if (!movieExists) {
+      const movieTemp = this.movieRepository.create(movie);
+      movieExists = await this.movieRepository.save(movieTemp);
+    }
+
+    //check if this movieLibrary already exists
+    const movieLibraryExists = await this.movieLibraryRepository.findOne({
+      movie: movieExists,
+      user: userOwner,
+    });
+
+    if (movieLibraryExists) {
       return 'Movie already in library';
     }
-    await this.movieRepository.save(movie);
+
+    const movieLibrary = this.movieLibraryRepository.create({
+      movie: movieExists,
+      user: userOwner,
+    });
+
+    await this.movieLibraryRepository.save(movieLibrary);
     return 'Movie added to library';
   }
 
-  async listMyLibrary(): Promise<MovieDTO[]> {
-    const movies = await this.movieRepository.find();
-    return movies.map((movie) => ({
-      imdbID: movie.imdbID,
-      title: movie.title,
-      poster: movie.poster,
-      imdbRating: movie.imdbRating,
-      userRating: movie.userRating,
-    }));
+  async listMyLibrary(user: any): Promise<MovieDTO[]> {
+    const userOwner = await this.userRepositorty.findOne({
+      username: user.username,
+    });
+
+    //list all movies of this user then return
+    const movieLibrary = await this.movieLibraryRepository.find({
+      where: { user: userOwner },
+      relations: ['movie'],
+    });
+
+    const movies = movieLibrary.map((movie) => {
+      const { imdbID, title, poster, imdbRating, userRating } = movie.movie;
+      return {
+        imdbID: imdbID,
+        title: title,
+        poster: poster,
+        imdbRating: imdbRating,
+        userRating: userRating,
+      };
+    });
+
+    return movies;
   }
 
   async removeMovie(imdbID: string): Promise<string> {
