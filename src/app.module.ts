@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MovieModule } from './movie/movie.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { OmdbModule } from './omdb/omdb.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UsersModule } from './users/users.module';
     MovieModule,
     AuthModule,
     UsersModule,
+    OmdbModule,
   ],
   controllers: [],
   providers: [],

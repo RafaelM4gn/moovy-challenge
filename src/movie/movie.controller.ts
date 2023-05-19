@@ -12,30 +12,12 @@ import {
 import { MovieService } from './movie.service';
 import { MovieDTO } from './dto/movie.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import {
-  ApiOkResponse,
-  ApiOperation,
-  ApiQuery,
-  ApiTags,
-  ApiUnauthorizedResponse,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @Controller('movies')
 @ApiTags('Movie')
 export class MovieController {
   constructor(private readonly movieService: MovieService) {}
-
-  //TODO Remove from here
-  @ApiOperation({ summary: 'Search for a movie' })
-  @ApiOkResponse({
-    description: 'A list of all movies found with given substring in title',
-  })
-  @ApiUnauthorizedResponse({ description: 'Unauthorized' })
-  @ApiQuery({ name: 'search', required: true })
-  @Get('search')
-  async searchMovie(@Query('search') search: string): Promise<any> {
-    return this.movieService.GetMoviesByTitle(search);
-  }
 
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Add a movie to my library' })
