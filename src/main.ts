@@ -17,6 +17,7 @@ async function bootstrap() {
     .addTag('Movies', 'Movie related endpoints')
     .addTag('Auth', 'Authentication related endpoints')
     .addTag('Users', 'Users related endpoints')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

@@ -18,9 +18,6 @@ export class MovieEntity {
   @Column()
   imdbRating: number;
 
-  @Column()
-  userRating: number;
-
   @OneToMany(() => MovieLibraryEntity, (movieLibrary) => movieLibrary.movie)
   movieLibrary: MovieLibraryEntity[];
 }
