@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { MovieEntity } from './movie.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MovieDTO } from './dto/movie.dto';
+import { movieDto } from './dto/movie.dto';
 import { UserEntity } from '../users/entities/user.entity';
 import { MovieLibraryEntity } from 'src/users/entities/movieLibrary.entity';
 import { UserDto } from 'src/users/dto/user.dto';
@@ -18,7 +18,7 @@ export class MovieService {
     private readonly movieLibraryRepository: Repository<MovieLibraryEntity>,
   ) {}
 
-  async addMovieToLibrary(movie: MovieDTO, user: any): Promise<void> {
+  async addMovieToLibrary(movie: movieDto, user: any): Promise<void> {
     const userOwner = await this.userRepositorty.findOne({
       username: user.username,
     });
@@ -50,7 +50,7 @@ export class MovieService {
     throw new HttpException('Movie added to library', HttpStatus.CREATED);
   }
 
-  async listMyLibrary(user: any): Promise<MovieDTO[]> {
+  async listMyLibrary(user: any): Promise<movieDto[]> {
     const userOwner = await this.userRepositorty.findOne({
       username: user.username,
     });
@@ -79,8 +79,12 @@ export class MovieService {
       username: user.username,
     });
 
+    const movieExists = await this.movieRepository.findOne({
+      imdbID: imdbID,
+    });
+
     const movieLibraryExists = await this.movieLibraryRepository.findOne({
-      movie: { imdbID: imdbID },
+      movie: movieExists,
       user: userOwner,
     });
 

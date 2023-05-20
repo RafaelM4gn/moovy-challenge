@@ -23,8 +23,13 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
 
   //Validation configuration
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();

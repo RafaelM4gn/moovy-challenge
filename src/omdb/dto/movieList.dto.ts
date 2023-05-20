@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -9,7 +10,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 
 //create dto of movientity
-export class movieDto {
+export class MovieListDto {
   @IsNotEmpty()
   @IsString()
   @ApiProperty({ description: 'ID from imdb', example: 'tt0133093' })
@@ -35,4 +36,9 @@ export class movieDto {
   @Max(10)
   @ApiProperty({ description: 'IMDB Rating', example: 8.7 })
   imdbRating: number;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  @ApiProperty({ description: 'Is movie in my library?', example: true })
+  userHasMovie: boolean;
 }

@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { MovieService } from './movie.service';
-import { MovieDTO } from './dto/movie.dto';
+import { movieDto } from './dto/movie.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import {
   ApiBearerAuth,
@@ -26,28 +26,28 @@ export class MovieController {
   constructor(private readonly movieService: MovieService) {}
 
   @UseGuards(JwtAuthGuard)
-  @ApiOperation({ summary: 'Add a movie to my library' })
-  @ApiResponse({ status: 201, description: 'Movie added to library' })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
-  @ApiResponse({ status: 409, description: 'Movie already in library' })
-  @ApiBody({ type: MovieDTO })
-  @ApiBearerAuth()
-  @Post()
-  postMovie(@Body() movie: MovieDTO, @Req() request: any): Promise<void> {
-    const user = request.user;
-    return this.movieService.addMovieToLibrary(movie, user);
-  }
-
-  @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'List all movies in my library' })
   @ApiResponse({ status: 200, description: 'Movies listed' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiBearerAuth()
   @Get()
-  getMovies(@Req() request: any): Promise<MovieDTO[]> {
+  getMovies(@Req() request: any): Promise<movieDto[]> {
     const user = request.user;
     const response = this.movieService.listMyLibrary(user);
     return response;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation({ summary: 'Add a movie to my library' })
+  @ApiResponse({ status: 201, description: 'Movie added to library' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 409, description: 'Movie already in library' })
+  @ApiBody({ type: movieDto })
+  @ApiBearerAuth()
+  @Post()
+  postMovie(@Body() movie: movieDto, @Req() request: any): Promise<void> {
+    const user = request.user;
+    return this.movieService.addMovieToLibrary(movie, user);
   }
 
   @UseGuards(JwtAuthGuard)
