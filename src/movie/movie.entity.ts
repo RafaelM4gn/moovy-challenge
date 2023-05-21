@@ -15,7 +15,7 @@ export class MovieEntity {
   @Column()
   poster: string;
 
-  @Column()
+  @Column({ type: 'float' })
   imdbRating: number;
 
   @OneToMany(() => MovieLibraryEntity, (movieLibrary) => movieLibrary.movie)
