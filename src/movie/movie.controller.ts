@@ -19,6 +19,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { libraryDto } from './dto/library.dto';
 
 @ApiTags('Movies')
 @Controller('movies')
@@ -31,7 +32,7 @@ export class MovieController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiBearerAuth()
   @Get()
-  getMovies(@Req() request: any): Promise<movieDto[]> {
+  getMovies(@Req() request: any): Promise<libraryDto[]> {
     const user = request.user;
     const response = this.movieService.listMyLibrary(user);
     return response;

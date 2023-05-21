@@ -6,6 +6,7 @@ import { movieDto } from './dto/movie.dto';
 import { UserEntity } from '../users/entities/user.entity';
 import { MovieLibraryEntity } from 'src/users/entities/movieLibrary.entity';
 import { UserDto } from 'src/users/dto/user.dto';
+import { libraryDto } from './dto/library.dto';
 
 @Injectable()
 export class MovieService {
@@ -50,7 +51,7 @@ export class MovieService {
     throw new HttpException('Movie added to library', HttpStatus.CREATED);
   }
 
-  async listMyLibrary(user: any): Promise<movieDto[]> {
+  async listMyLibrary(user: any): Promise<libraryDto[]> {
     const userOwner = await this.userRepositorty.findOne({
       username: user.username,
     });
@@ -68,6 +69,7 @@ export class MovieService {
         poster: poster,
         imdbRating: imdbRating,
         userRating: movie.userRating,
+        userHasMovie: true,
       };
     });
 
