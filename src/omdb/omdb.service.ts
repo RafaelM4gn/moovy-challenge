@@ -56,6 +56,8 @@ export class OmdbService {
         }),
       );
       return movieWithRatings;
+    } else {
+      return [];
     }
   }
 
