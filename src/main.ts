@@ -6,6 +6,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  //Cors configuration
+  app.enableCors();
+
   //Validation configuration
   app.useGlobalPipes(new ValidationPipe());
 
@@ -30,6 +33,6 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(3001);
+  await app.listen(3000);
 }
 bootstrap();
