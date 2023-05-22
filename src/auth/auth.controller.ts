@@ -35,10 +35,7 @@ export class AuthController {
   @ApiBearerAuth()
   @Get('validate')
   async validate(@Req() req: any) {
-    console.log(req.headers.authorization);
-    //get just token from header
     const token = req.headers.authorization.replace('Bearer ', '');
-
     return this.authService.validateToken(token);
   }
 

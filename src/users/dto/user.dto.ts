@@ -10,5 +10,5 @@ export class UserDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ description: 'Password', example: '1234' })
-  readonly password: string;
+  password: string;
 }
